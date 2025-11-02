@@ -1,39 +1,57 @@
-n<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ever-Increasing Number</title>
+  <title>Global Numbers</title>
   <style>
     body {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
       background: #0a0a0a;
       color: #00ff99;
       font-family: 'Courier New', monospace;
-      flex-direction: column;
       margin: 0;
     }
-    #value {
-      font-size: 4em;
-      font-weight: bold;
+    .number-container {
+      margin: 20px 0;
+      text-align: center;
     }
-    h1 {
-      margin-bottom: 20px;
+    .label {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+    .value {
+      font-size: 3em;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h1>Khmetian Debt</h1>
-  <div>$<span id="value">210,000,000,000</span></div>
+  <div class="number-container">
+    <div class="label">Khmetian Debt Debt</div>
+    <div>$<span id="debt">210,000,000,000</span></div>
+  </div>
+
+  <div class="number-container">
+    <div class="label">Khmetian GDP</div>
+    <div>$<span id="gdp">1,210,000,000,000</span></div>
+  </div>
 
   <script>
     const startTime = new Date('2025-11-02T00:00:00Z'); // fixed start time in UTC
-    const startValue = 210_000_000_000;
-    const increasePerMs = 5; 
-    const display = document.getElementById('value');
+
+    const debtStartValue = 210_000_000_000;
+    const debtIncreasePerMs = 5;
+
+    const gdpStartValue = 1_210_000_000_000;
+    const gdpIncreasePerMs = 3;
+
+    const debtDisplay = document.getElementById('debt');
+    const gdpDisplay = document.getElementById('gdp');
 
     function formatNumber(num) {
       return num.toLocaleString('en-US');
@@ -41,9 +59,14 @@ n<!DOCTYPE html>
 
     function update() {
       const now = new Date();
-      const elapsed = now - startTime; // milliseconds since start
-      const value = startValue + elapsed * increasePerMs;
-      display.textContent = formatNumber(Math.floor(value));
+      const elapsed = now - startTime;
+
+      const currentDebt = debtStartValue + elapsed * debtIncreasePerMs;
+      const currentGDP = gdpStartValue + elapsed * gdpIncreasePerMs;
+
+      debtDisplay.textContent = formatNumber(Math.floor(currentDebt));
+      gdpDisplay.textContent = formatNumber(Math.floor(currentGDP));
+
       requestAnimationFrame(update);
     }
 
