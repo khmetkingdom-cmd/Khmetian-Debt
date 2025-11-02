@@ -3,46 +3,96 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Global Numbers</title>
+  <title>Khmet money stuff</title>
   <style>
     body {
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
       height: 100vh;
-      background: #0a0a0a;
-      color: #00ff99;
-      font-family: 'Courier New', monospace;
       margin: 0;
+      font-family: 'Courier New', monospace;
+      background: linear-gradient(135deg, #0a0a0a, #111111);
+      color: #ffffff;
     }
-    .number-container {
-      margin: 20px 0;
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 50px;
+    }
+
+    .number-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 60px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 255, 153, 0.5);
+      min-width: 500px;
       text-align: center;
+      transition: box-shadow 0.3s;
     }
+
+    .number-box:hover {
+      box-shadow: 0 0 60px rgba(0, 255, 153, 0.8);
+    }
+
     .label {
-      font-size: 1.5em;
-      margin-bottom: 10px;
-    }
-    .value {
-      font-size: 3em;
+      font-size: 2em;
+      margin-bottom: 20px;
       font-weight: bold;
+      text-shadow: 1px 1px 3px #000;
+    }
+
+    .value {
+      font-size: 5em;
+      font-weight: bold;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    }
+
+    /* Different colors for Debt and GDP */
+    #debt-box {
+      background: rgba(255, 0, 0, 0.1);
+      color: #ff4444;
+    }
+
+    #gdp-box {
+      background: rgba(0, 255, 0, 0.1);
+      color: #00ff99;
+    }
+
+    @media (max-width: 600px) {
+      .value {
+        font-size: 3em;
+      }
+      .label {
+        font-size: 1.5em;
+      }
+      .number-box {
+        padding: 20px 30px;
+        min-width: 300px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="number-container">
-    <div class="label">Khmetian Debt Debt</div>
-    <div>$<span id="debt">210,000,000,000</span></div>
-  </div>
+  <div class="container">
+    <div class="number-box" id="debt-box">
+      <div class="label">Global Debt</div>
+      <div class="value" id="debt">210,000,000,000</div>
+    </div>
 
-  <div class="number-container">
-    <div class="label">Khmetian GDP</div>
-    <div>$<span id="gdp">1,210,000,000,000</span></div>
+    <div class="number-box" id="gdp-box">
+      <div class="label">Khmetian GDP</div>
+      <div class="value" id="gdp">1,210,000,000,000</div>
+    </div>
   </div>
 
   <script>
-    const startTime = new Date('2025-11-02T00:00:00Z'); // fixed start time in UTC
+    const startTime = new Date('2025-11-02T00:00:00Z');
 
     const debtStartValue = 210_000_000_000;
     const debtIncreasePerMs = 5;
