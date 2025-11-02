@@ -13,36 +13,37 @@
       background: #0a0a0a;
       color: #00ff99;
       font-family: 'Courier New', monospace;
-      font-size: 3em;
       flex-direction: column;
+      margin: 0;
     }
     #value {
       font-size: 4em;
       font-weight: bold;
     }
+    h1 {
+      margin-bottom: 20px;
+    }
   </style>
 </head>
 <body>
+  <h1>Global Ever-Increasing Number</h1>
   <div>$<span id="value">210,000,000,000</span></div>
 
   <script>
-    let value = 210_000_000_000;
-    const increasePerMs = 5;
+    const startTime = new Date('2025-11-02T00:00:00Z'); // fixed start time in UTC
+    const startValue = 210_000_000_000;
+    const increasePerMs = 5; 
     const display = document.getElementById('value');
 
     function formatNumber(num) {
       return num.toLocaleString('en-US');
     }
 
-    // Efficient update loop using requestAnimationFrame
-    let lastTime = performance.now();
-
-    function update(currentTime) {
-      const elapsed = currentTime - lastTime;
-      const increase = elapsed * increasePerMs; // 5 per ms
-      value += increase;
+    function update() {
+      const now = new Date();
+      const elapsed = now - startTime; // milliseconds since start
+      const value = startValue + elapsed * increasePerMs;
       display.textContent = formatNumber(Math.floor(value));
-      lastTime = currentTime;
       requestAnimationFrame(update);
     }
 
